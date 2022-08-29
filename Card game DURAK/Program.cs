@@ -33,12 +33,12 @@ namespace Card_game_DURAK
                 }
             } while (Game.LeftComputerCards() > 0 && Game.LeftPlayerCards() > 0);
         Console.Clear();
-        if (Game.LeftComputerCards() == 0 && Game.LeftPlayerCards() != 0)
-            Console.WriteLine("Computer is win!");
-        else if (Game.LeftComputerCards() != 0 && Game.LeftPlayerCards() == 0)
-            Console.WriteLine("Player is win!");
-        else
-            Console.WriteLine("");
+            if (Game.LeftComputerCards() == 0 && Game.LeftPlayerCards() != 0)
+                Game.ShowEnd("COMPUTER");
+            else if (Game.LeftComputerCards() != 0 && Game.LeftPlayerCards() == 0)
+                Game.ShowEnd("PLAYER");
+            else
+                Console.WriteLine("Friendship won!");
         }
     }
 }

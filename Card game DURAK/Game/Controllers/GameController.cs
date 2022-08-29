@@ -1,6 +1,7 @@
 ﻿using Card_game_DURAK.Game.Cards;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Card_game_DURAK.Game.Controllers
 {
@@ -173,14 +174,12 @@ namespace Card_game_DURAK.Game.Controllers
             {
                 if (Computer.Count == 0)
                 {
-                    Console.Clear();
-                    Console.WriteLine("Computer is win!");
+                    ShowEnd("COMPUTER");
                     Environment.Exit(0);
                 }
                 else
                 {
-                    Console.Clear();
-                    Console.WriteLine("Player is win!");
+                    ShowEnd("PLAYER");
                     Environment.Exit(0);
                 }
             }
@@ -280,14 +279,12 @@ namespace Card_game_DURAK.Game.Controllers
             {
                 if (Computer.Count == 0)
                 {
-                    Console.Clear();
-                    Console.WriteLine("Computer is win!");
+                    ShowEnd("COMPUTER");
                     Environment.Exit(0);
                 }
                 else
                 {
-                    Console.Clear();
-                    Console.WriteLine("Player is win!");
+                    ShowEnd("PLAYER");
                     Environment.Exit(0);
                 }
             }
@@ -295,7 +292,7 @@ namespace Card_game_DURAK.Game.Controllers
 
         public bool CheckCard(Card tmp)                         //Проверка, может ли выбраная карта побить лежащую на игровом поле
         {
-            if (PlayField.Peek().Weight <= tmp.Weight && (PlayField.Peek().Suit.ToString().Equals(tmp.Suit.ToString()) || tmp.Suit.ToString().Equals(Trump.Suit.ToString())))
+            if (PlayField.Peek().Weight <= tmp.Weight && (PlayField.Peek().Suit.ToString().Equals(tmp.Suit.ToString()) || tmp.CardTrump))
                 return true;
             else
                 return false;
@@ -305,7 +302,6 @@ namespace Card_game_DURAK.Game.Controllers
         {
             Card [] newPlayField = new Card[PlayField.Count];
             Card [] newCards = new Card[tmp.Count];
-            //newCards.Reverse();
             PlayField.CopyTo(newPlayField, 0);
             Array.Reverse(newPlayField);
             tmp.CopyTo(newCards, 0);
@@ -476,6 +472,19 @@ namespace Card_game_DURAK.Game.Controllers
             }
         }
 
+        public void ShowEnd (string name)
+        {
+            int x = Console.WindowWidth;
+            Console.SetCursorPosition(x / 2 - (name.Length + 5) / 2-1, 18);
+            Console.WriteLine(new string('-', name.Length + 9));
+            Console.SetCursorPosition(x / 2 - (name.Length + 5)/2-1, 19);
+            Console.WriteLine($"| {name} WON! |");
+            Console.SetCursorPosition(x / 2 - (name.Length + 5) / 2 - 1, 20);
+            Console.WriteLine(new string('-', name.Length + 9));
+            Console.SetCursorPosition(x / 2 - 11, 22);
+            Console.WriteLine("Press any key to exit!");
+            Console.ReadKey();
+        }
 
     }
 }
